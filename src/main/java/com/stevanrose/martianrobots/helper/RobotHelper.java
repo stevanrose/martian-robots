@@ -1,6 +1,7 @@
 package com.stevanrose.martianrobots.helper;
 
 import com.stevanrose.martianrobots.Orientation;
+import com.stevanrose.martianrobots.Position;
 import lombok.experimental.UtilityClass;
 
 import java.util.AbstractMap;
@@ -29,5 +30,25 @@ public class RobotHelper {
 
   public static Orientation turnLeft(Orientation orientation) {
       return leftTurns.get(orientation);
+  }
+
+  public static Position move(Position position, Orientation orientation) {
+
+    Position nextPosition = new Position(position.getX(), position.getY());
+
+    if(orientation.equals(Orientation.N)) {
+      nextPosition.setY(position.getY() + 1);
+    }
+    if(orientation.equals(Orientation.E)) {
+      nextPosition.setX(position.getX() + 1);
+    }
+    if(orientation.equals(Orientation.S)) {
+      nextPosition.setY(position.getY() - 1);
+    }
+    if(orientation.equals(Orientation.W)) {
+      nextPosition.setX(position.getX() - 1);
+    }
+
+    return nextPosition;
   }
 }
