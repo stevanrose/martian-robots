@@ -1,6 +1,7 @@
 package com.stevanrose.martianrobots;
 
 import com.stevanrose.martianrobots.exception.GridBoundaryException;
+import com.stevanrose.martianrobots.helper.RobotHelper;
 import lombok.extern.slf4j.Slf4j;
 
 import static com.stevanrose.martianrobots.helper.RobotHelper.*;
@@ -14,7 +15,7 @@ public class Robot {
 
   public Robot(Grid grid, Position position, Orientation orientation) {
 
-    if (position.getX() > grid.getUpperX() || position.getY() > grid.getUpperY()) {
+    if (isOffGrid(grid, position)) {
       throw new GridBoundaryException(
           String.format(
               "Robot position (%d,%d) is beyond the grid boundary (%d,%d)",
@@ -38,6 +39,9 @@ public class Robot {
       }
       if (command.equals("F")) {
         Position newPosition = move(position, orientation);
+        if(isOffGrid(grid, newPosition)) {
+          grid.leaveScent(position);
+        }
         position.setX(newPosition.getX());
         position.setY(newPosition.getY());
       }

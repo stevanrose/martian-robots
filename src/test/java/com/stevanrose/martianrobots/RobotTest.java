@@ -4,8 +4,7 @@ import com.stevanrose.martianrobots.exception.GridBoundaryException;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.*;
 
 class RobotTest {
 
@@ -22,7 +21,7 @@ class RobotTest {
 
   @Test
   void cannotCreateRobotBeyondGridBoundaries() {
-    Position position = new Position(11, 11);
+    position = new Position(11, 11);
     Exception exception =
         assertThrows(
             GridBoundaryException.class,
@@ -32,6 +31,20 @@ class RobotTest {
 
     assertEquals(
         "Robot position (11,11) is beyond the grid boundary (10,10)", exception.getMessage());
+  }
+
+  @Test
+  void cannotCreateRobotBelowGridBoundaries() {
+    position = new Position(-1, -1);
+    Exception exception =
+        assertThrows(
+            GridBoundaryException.class,
+            () -> {
+              new Robot(grid, position, Orientation.N);
+            });
+
+    assertEquals(
+        "Robot position (-1,-1) is beyond the grid boundary (10,10)", exception.getMessage());
   }
 
   @Test
@@ -126,32 +139,34 @@ class RobotTest {
   }
 
   @Test
-  void canInstructRobotToMoveOffGridNorthAndReportItselfLost() {
+  void canInstructRobotToMoveOffGridNorthAndReportItselfLostAndLeavesAScent() {
     position = new Position(5, 10);
     robot = new Robot(grid, position, Orientation.N);
     assertEquals("5 11 N LOST", robot.execute("F"));
+    assertTrue(grid.hasScent(position));
   }
 
   @Test
-  void canInstructRobotToMoveOffGridEastAndReportItselfLost() {
+  void canInstructRobotToMoveOffGridEastAndReportItselfLostAndLeavesAScent() {
     position = new Position(10, 5);
     robot = new Robot(grid, position, Orientation.E);
     assertEquals("11 5 E LOST", robot.execute("F"));
+    assertTrue(grid.hasScent(position));
   }
 
   @Test
-  void canInstructRobotToMoveOffGridSouthAndReportItselfLost() {
+  void canInstructRobotToMoveOffGridSouthAndReportItselfLostAndLeavesAScent() {
     position = new Position(5, 0);
     robot = new Robot(grid, position, Orientation.S);
     assertEquals("5 -1 S LOST", robot.execute("F"));
+    assertTrue(grid.hasScent(position));
   }
 
   @Test
-  void canInstructRobotToMoveOffGridWestAndReportItselfLost() {
+  void canInstructRobotToMoveOffGridWestAndReportItselfLostAndLeavesAScent() {
     position = new Position(0, 5);
     robot = new Robot(grid, position, Orientation.W);
     assertEquals("-1 5 W LOST", robot.execute("F"));
+    assertTrue(grid.hasScent(position));
   }
-
-
 }

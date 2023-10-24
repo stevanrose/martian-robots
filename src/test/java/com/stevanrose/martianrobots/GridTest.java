@@ -1,9 +1,9 @@
 package com.stevanrose.martianrobots;
 
+import static org.junit.jupiter.api.Assertions.*;
+
 import com.stevanrose.martianrobots.exception.GridBoundaryException;
 import org.junit.jupiter.api.Test;
-
-import static org.junit.jupiter.api.Assertions.*;
 
 class GridTest {
 
