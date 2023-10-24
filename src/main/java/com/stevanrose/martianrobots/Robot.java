@@ -1,12 +1,17 @@
 package com.stevanrose.martianrobots;
 
 import com.stevanrose.martianrobots.exception.GridBoundaryException;
+import lombok.extern.slf4j.Slf4j;
 
+import static com.stevanrose.martianrobots.helper.RobotHelper.turnLeft;
+import static com.stevanrose.martianrobots.helper.RobotHelper.turnRight;
+
+@Slf4j
 public class Robot {
 
   private final Grid grid;
   private final Position position;
-  private final Orientation orientation;
+  private Orientation orientation;
 
   public Robot(Grid grid, Position position, Orientation orientation) {
 
@@ -20,6 +25,20 @@ public class Robot {
     this.grid = grid;
     this.position = position;
     this.orientation = orientation;
+  }
+
+  public String execute(String commands) {
+
+    for (char c : commands.toCharArray()) {
+      String command = String.valueOf(c);
+      if (command.equals("R")) {
+        orientation = turnRight(orientation);
+      }
+      if (command.equals("L")) {
+        orientation = turnLeft(orientation);
+      }
+    }
+    return report();
   }
 
   public String report() {
