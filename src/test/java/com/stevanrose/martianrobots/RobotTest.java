@@ -81,48 +81,77 @@ class RobotTest {
 
   @Test
   void canInstructRobotToMoveOneSpaceNorthWhilstRemainingInTheGrid() {
-    assertEquals("5 6 N", robot.execute("M"));
+    assertEquals("5 6 N", robot.execute("F"));
   }
 
   @Test
   void canInstructRobotToMoveTwoSpaceNorthWhilstRemainingInTheGrid() {
-    assertEquals("5 7 N", robot.execute("MM"));
+    assertEquals("5 7 N", robot.execute("FF"));
   }
 
   @Test
   void canInstructRobotToMoveOneSpaceEastWhilstRemainingInTheGrid() {
     robot = new Robot(grid, position, Orientation.E);
-    assertEquals("6 5 E", robot.execute("M"));
+    assertEquals("6 5 E", robot.execute("F"));
   }
 
   @Test
   void canInstructRobotToMoveTwoSpacesEastWhilstRemainingInTheGrid() {
     robot = new Robot(grid, position, Orientation.E);
-    assertEquals("7 5 E", robot.execute("MM"));
+    assertEquals("7 5 E", robot.execute("FF"));
   }
 
   @Test
   void canInstructRobotToMoveOneSpaceSouthWhilstRemainingInTheGrid() {
     robot = new Robot(grid, position, Orientation.S);
-    assertEquals("5 4 S", robot.execute("M"));
+    assertEquals("5 4 S", robot.execute("F"));
   }
 
   @Test
   void canInstructRobotToMoveTwoSpacesSouthWhilstRemainingInTheGrid() {
     robot = new Robot(grid, position, Orientation.S);
-    assertEquals("5 3 S", robot.execute("MM"));
+    assertEquals("5 3 S", robot.execute("FF"));
   }
 
   @Test
   void canInstructRobotToMoveOneSpaceWestWhilstRemainingInTheGrid() {
     robot = new Robot(grid, position, Orientation.W);
-    assertEquals("4 5 W", robot.execute("M"));
+    assertEquals("4 5 W", robot.execute("F"));
   }
 
   @Test
   void canInstructRobotToMoveTwoSpaceWestWhilstRemainingInTheGrid() {
     robot = new Robot(grid, position, Orientation.W);
-    assertEquals("3 5 W", robot.execute("MM"));
+    assertEquals("3 5 W", robot.execute("FF"));
   }
+
+  @Test
+  void canInstructRobotToMoveOffGridNorthAndReportItselfLost() {
+    position = new Position(5, 10);
+    robot = new Robot(grid, position, Orientation.N);
+    assertEquals("5 11 N LOST", robot.execute("F"));
+  }
+
+  @Test
+  void canInstructRobotToMoveOffGridEastAndReportItselfLost() {
+    position = new Position(10, 5);
+    robot = new Robot(grid, position, Orientation.E);
+    assertEquals("11 5 E LOST", robot.execute("F"));
+  }
+
+  @Test
+  void canInstructRobotToMoveOffGridSouthAndReportItselfLost() {
+    position = new Position(5, 0);
+    robot = new Robot(grid, position, Orientation.S);
+    assertEquals("5 -1 S LOST", robot.execute("F"));
+  }
+
+  @Test
+  void canInstructRobotToMoveOffGridWestAndReportItselfLost() {
+    position = new Position(0, 5);
+    robot = new Robot(grid, position, Orientation.W);
+    assertEquals("-1 5 W LOST", robot.execute("F"));
+  }
+
 
 }

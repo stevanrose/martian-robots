@@ -1,5 +1,6 @@
 package com.stevanrose.martianrobots.helper;
 
+import com.stevanrose.martianrobots.Grid;
 import com.stevanrose.martianrobots.Orientation;
 import com.stevanrose.martianrobots.Position;
 import lombok.experimental.UtilityClass;
@@ -29,26 +30,32 @@ public class RobotHelper {
   }
 
   public static Orientation turnLeft(Orientation orientation) {
-      return leftTurns.get(orientation);
+    return leftTurns.get(orientation);
   }
 
   public static Position move(Position position, Orientation orientation) {
 
     Position nextPosition = new Position(position.getX(), position.getY());
 
-    if(orientation.equals(Orientation.N)) {
+    if (orientation.equals(Orientation.N)) {
       nextPosition.setY(position.getY() + 1);
     }
-    if(orientation.equals(Orientation.E)) {
+    if (orientation.equals(Orientation.E)) {
       nextPosition.setX(position.getX() + 1);
     }
-    if(orientation.equals(Orientation.S)) {
+    if (orientation.equals(Orientation.S)) {
       nextPosition.setY(position.getY() - 1);
     }
-    if(orientation.equals(Orientation.W)) {
+    if (orientation.equals(Orientation.W)) {
       nextPosition.setX(position.getX() - 1);
     }
-
     return nextPosition;
+  }
+
+  public static boolean isOffGrid(Grid grid, Position position) {
+    return (position.getX() < 0
+        || position.getX() > grid.getUpperX()
+        || position.getY() < 0
+        || position.getY() > grid.getUpperY());
   }
 }
