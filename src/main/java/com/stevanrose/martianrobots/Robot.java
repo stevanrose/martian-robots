@@ -1,8 +1,10 @@
 package com.stevanrose.martianrobots;
 
 import com.stevanrose.martianrobots.exception.GridBoundaryException;
+import com.stevanrose.martianrobots.helper.RobotHelper;
 import lombok.extern.slf4j.Slf4j;
 
+import static com.stevanrose.martianrobots.helper.RobotHelper.*;
 import static com.stevanrose.martianrobots.helper.RobotHelper.turnLeft;
 import static com.stevanrose.martianrobots.helper.RobotHelper.turnRight;
 
@@ -36,6 +38,11 @@ public class Robot {
       }
       if (command.equals("L")) {
         orientation = turnLeft(orientation);
+      }
+      if(command.equals("M")) {
+        Position newPosition = move(position, orientation);
+        position.setX(newPosition.getX());
+        position.setY(newPosition.getY());
       }
     }
     return report();
