@@ -1,8 +1,8 @@
-package com.stevanrose.martianrobots;
+package com.stevanrose.martianrobots.grid;
 
+import com.stevanrose.martianrobots.robot.Position;
 import com.stevanrose.martianrobots.exception.GridBoundaryException;
 import lombok.Getter;
-import lombok.Setter;
 
 import java.util.ArrayList;
 import java.util.List;
