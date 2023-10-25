@@ -198,7 +198,7 @@ class RobotTest {
             });
 
     assertEquals(
-        "Robot can only execute up to 100 instructions (L, R or F)", exception.getMessage());
+        "Robot can only execute up to 99 instructions (L, R or F)", exception.getMessage());
   }
 
   @Test
