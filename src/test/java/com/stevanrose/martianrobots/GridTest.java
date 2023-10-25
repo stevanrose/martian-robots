@@ -3,6 +3,7 @@ package com.stevanrose.martianrobots;
 import static org.junit.jupiter.api.Assertions.*;
 
 import com.stevanrose.martianrobots.exception.GridBoundaryException;
+import com.stevanrose.martianrobots.grid.Grid;
 import org.junit.jupiter.api.Test;
 
 class GridTest {

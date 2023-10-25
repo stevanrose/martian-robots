@@ -1,7 +1,9 @@
-package com.stevanrose.martianrobots;
+package com.stevanrose.martianrobots.robot;
 
 import com.stevanrose.martianrobots.exception.GridBoundaryException;
 import com.stevanrose.martianrobots.exception.InvalidCommandException;
+import com.stevanrose.martianrobots.grid.Grid;
+import lombok.Getter;
 import lombok.extern.slf4j.Slf4j;
 
 import java.util.AbstractMap;
@@ -57,6 +59,7 @@ public class Robot {
       if (command.equals("F")) {
         Position newPosition = move(position, orientation);
         if (isOffGrid(newPosition)) {
+          log.info("I am lost");
           grid.leaveScent(position);
           return reportLost();
         }
@@ -75,15 +78,22 @@ public class Robot {
     return String.format("%d %d %s LOST", position.getX(), position.getY(), orientation);
   }
 
+
   private Orientation turnRight(Orientation orientation) {
-    return rightTurns.get(orientation);
+    Orientation nextOrientation = rightTurns.get(orientation);
+    log.info("Turning right from {} to {}", orientation, nextOrientation);
+    return nextOrientation;
   }
 
   private Orientation turnLeft(Orientation orientation) {
-    return leftTurns.get(orientation);
+    Orientation nextOrientation = leftTurns.get(orientation);
+    log.info("Turning left from {} to {}", orientation, nextOrientation);
+    return nextOrientation;
   }
 
   private Position move(Position position, Orientation orientation) {
+
+    log.info("Moving forward");
 
     Position nextPosition = new Position(position.getX(), position.getY());
 

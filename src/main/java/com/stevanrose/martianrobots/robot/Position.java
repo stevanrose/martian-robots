@@ -1,4 +1,4 @@
-package com.stevanrose.martianrobots;
+package com.stevanrose.martianrobots.robot;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;

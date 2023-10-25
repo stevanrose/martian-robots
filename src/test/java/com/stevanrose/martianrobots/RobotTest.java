@@ -2,6 +2,10 @@ package com.stevanrose.martianrobots;
 
 import com.stevanrose.martianrobots.exception.GridBoundaryException;
 import com.stevanrose.martianrobots.exception.InvalidCommandException;
+import com.stevanrose.martianrobots.grid.Grid;
+import com.stevanrose.martianrobots.robot.Orientation;
+import com.stevanrose.martianrobots.robot.Position;
+import com.stevanrose.martianrobots.robot.Robot;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
