@@ -169,4 +169,20 @@ class RobotTest {
     assertEquals("-1 5 W LOST", robot.execute("F"));
     assertTrue(grid.hasScent(position));
   }
+
+  @Test
+  void cannotInstructRobotToMoveOffGridIfCurrentPositionContainsAScent() {
+    position = new Position(5, 10);
+    grid.leaveScent(position);
+    robot = new Robot(grid, position, Orientation.N);
+    assertEquals("5 10 N", robot.execute("F"));
+  }
+
+  @Test
+  void canInstructRobotToMoveOnGridIfCurrentPositionContainsAScent() {
+    position = new Position(5, 10);
+    grid.leaveScent(position);
+    robot = new Robot(grid, position, Orientation.S);
+    assertEquals("5 9 S", robot.execute("F"));
+  }
 }
