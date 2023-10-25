@@ -28,6 +28,6 @@ public class Grid {
   }
 
   public boolean hasScent(Position position) {
-    return scents.contains(position);
+    return scents.stream().anyMatch(s -> s.getX() == position.getX() && s.getY() == position.getY());
   }
 }
