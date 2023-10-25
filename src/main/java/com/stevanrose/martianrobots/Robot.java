@@ -38,7 +38,7 @@ public class Robot {
       throw new GridBoundaryException(
           String.format(
               "Robot position (%d,%d) is beyond the grid boundary (%d,%d)",
-              position.getX(), position.getY(), grid.getUpperX(), grid.getUpperX()));
+              position.getX(), position.getY(), grid.getUpperX(), grid.getUpperY()));
     }
   }
 
@@ -58,6 +58,7 @@ public class Robot {
         Position newPosition = move(position, orientation);
         if (isOffGrid(newPosition)) {
           grid.leaveScent(position);
+          return reportLost();
         }
         position.setX(newPosition.getX());
         position.setY(newPosition.getY());
@@ -67,11 +68,11 @@ public class Robot {
   }
 
   public String report() {
-    if (isOffGrid(position)) {
-      return String.format("%d %d %s LOST", position.getX(), position.getY(), orientation);
-    } else {
-      return String.format("%d %d %s", position.getX(), position.getY(), orientation);
-    }
+    return String.format("%d %d %s", position.getX(), position.getY(), orientation);
+  }
+
+  public String reportLost() {
+    return String.format("%d %d %s LOST", position.getX(), position.getY(), orientation);
   }
 
   private Orientation turnRight(Orientation orientation) {
@@ -105,8 +106,6 @@ public class Robot {
     return nextPosition;
   }
 
-
-
   private boolean isOffGrid(Position position) {
     return (position.getX() < 0
         || position.getX() > grid.getUpperX()
@@ -121,5 +120,4 @@ public class Robot {
       throw new InvalidCommandException("Robot can only execute up to 99 instructions (L, R or F)");
     }
   }
-
 }
