@@ -5,31 +5,29 @@ import lombok.Getter;
 import lombok.Setter;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 
 @Getter
-@Setter
 public class Grid {
 
-    private int upperX;
-    private int upperY;
+  private int upperX;
+  private int upperY;
   private List<Position> scents = new ArrayList<>();
 
-    public Grid(int upperX, int upperY) {
+  public Grid(int upperX, int upperY) {
 
-        if(upperX > 50 || upperY > 50) {
-            throw new GridBoundaryException("Upper limits grid (50,50) exceeded");
-        }
-        this.upperX = upperX;
-        this.upperY = upperY;
+    if (upperX > 50 || upperY > 50) {
+      throw new GridBoundaryException("Upper limits grid (50,50) exceeded");
     }
+    this.upperX = upperX;
+    this.upperY = upperY;
+  }
 
-    public void leaveScent(Position position) {
-        scents.add(position);
-    }
+  public void leaveScent(Position position) {
+    scents.add(position);
+  }
 
-    public boolean hasScent(Position position) {
-        return scents.contains(position);
-    }
+  public boolean hasScent(Position position) {
+    return scents.contains(position);
+  }
 }
