@@ -1,6 +1,7 @@
 package com.stevanrose.martianrobots;
 
 import com.stevanrose.martianrobots.exception.GridBoundaryException;
+import com.stevanrose.martianrobots.exception.InvalidCommandException;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -184,5 +185,33 @@ class RobotTest {
     grid.leaveScent(position);
     robot = new Robot(grid, position, Orientation.S);
     assertEquals("5 9 S", robot.execute("F"));
+  }
+
+  @Test
+  void CannotIssueMoreThan100Commands() {
+    String commands = "LF".repeat(51);
+    Exception exception =
+        assertThrows(
+            InvalidCommandException.class,
+            () -> {
+              robot.execute(commands);
+            });
+
+    assertEquals(
+        "Robot can only execute up to 100 instructions (L, R or F)", exception.getMessage());
+  }
+
+  @Test
+  void CannotIssueInvalidCommands() {
+    String commands = "XYZ";
+    Exception exception =
+        assertThrows(
+            InvalidCommandException.class,
+            () -> {
+              robot.execute(commands);
+            });
+
+    assertEquals(
+        "Robot can only execute up to 99 instructions (L, R or F)", exception.getMessage());
   }
 }
